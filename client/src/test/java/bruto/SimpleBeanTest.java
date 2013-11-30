@@ -12,6 +12,7 @@ import sample.SimpleBean;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +29,7 @@ public class SimpleBeanTest {
         Set<TruthFormula> truthFormulas = new HashSet<>();
         truthFormulas.add(new TruthFormula<Float>() {
             @Override
-            public TestResult test(Float result, Object[] arguments) {
+            public TestResult verify(Float result, Object[] arguments) {
                 int a = (arguments[0] != null) ? (Integer) arguments[0] : 0;
                 int b = (arguments[1] != null) ? (Integer) arguments[1] : 0;
                 boolean computationCorrect = (result) == (a + b);
@@ -45,8 +46,7 @@ public class SimpleBeanTest {
         StringBuilder report = new StringBuilder();
         results.printResults(report);
         log.info("Report:\n{}", report.toString());
-        assertTrue(results.getMethodExplorationResults().isEmpty());
-        log.info("results size {}", results.getMethodExplorationResults().size());
+        assertEquals(1, results.getMethodExplorationResults().size());
     }
 
 }

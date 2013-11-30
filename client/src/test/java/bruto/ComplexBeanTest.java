@@ -30,7 +30,7 @@ public class ComplexBeanTest {
 
         truthFormulas.add(new TruthFormula<Boolean>("containsUser", String.class) {
             @Override
-            public TestResult test(Boolean result, Object[] arguments) {
+            public TestResult verify(Boolean result, Object[] arguments) {
                 boolean value = complexBean.containsUser((String) arguments[0]) == result;
                 return new TestResult(value ? TestResult.Result.SUCCESS : TestResult.Result.FAILURE);
             }
@@ -38,14 +38,14 @@ public class ComplexBeanTest {
 
         truthFormulas.add(new TruthFormula<ComplexBean.User>("create") {
             @Override
-            public TestResult test(ComplexBean.User result, Object[] arguments) {
+            public TestResult verify(ComplexBean.User result, Object[] arguments) {
                 return new TestResult(TestResult.Result.SUCCESS);
             }
         });
 
         truthFormulas.add(new TruthFormula<IllegalArgumentException>("create") {
             @Override
-            public TestResult test(IllegalArgumentException exception, Object[] arguments) {
+            public TestResult verify(IllegalArgumentException exception, Object[] arguments) {
                 if ((arguments[0] == null) || (arguments[1] == null)) {
                     return new TestResult(TestResult.Result.SUCCESS, "expected behaviour");
                 } else {
@@ -56,7 +56,7 @@ public class ComplexBeanTest {
 
         truthFormulas.add(new TruthFormula<DuplicateUserException>("create") {
             @Override
-            public TestResult test(DuplicateUserException exception, Object[] arguments) {
+            public TestResult verify(DuplicateUserException exception, Object[] arguments) {
                 if (complexBean.containsUser((String) arguments[0])) {
                     return new TestResult(TestResult.Result.SUCCESS, "expected behaviour");
                 } else {

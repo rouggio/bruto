@@ -79,7 +79,7 @@ public class BrutoEngine {
                 Class genericType = (Class) ((ParameterizedTypeImpl) truthFormula.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                 if (genericType.isAssignableFrom(outcome.getClass())) {
                     formulasMet |= true;
-                    TestResult result = truthFormula.test(outcome, argumentSet.getArguments());
+                    TestResult result = truthFormula.verify(outcome, argumentSet.getArguments());
                     if (result.getResult().equals(TestResult.Result.FAILURE)) {
                         results.addViolation(new Result(argumentSet, result));
                     } else {

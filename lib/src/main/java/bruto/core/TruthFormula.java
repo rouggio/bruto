@@ -5,7 +5,7 @@ import bruto.TestResult;
 import java.lang.reflect.Method;
 
 /**
- * describes a condition by which the output of a method should be considered valid, based upon it's input
+ * describes a condition by which the output of a method should be considered valid, based upon its input
  */
 public abstract class TruthFormula<T> {
 
@@ -47,6 +47,6 @@ public abstract class TruthFormula<T> {
     }
 
     //the expectation to meet
-    public abstract TestResult test(T result, Object[] arguments);
+    public abstract TestResult verify(T result, Object[] arguments);
 
 }
