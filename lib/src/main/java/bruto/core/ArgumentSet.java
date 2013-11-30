@@ -1,4 +1,4 @@
-package bruto;
+package bruto.core;
 
 /**
  * an instance of possible arguments permutation for a given method

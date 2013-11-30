@@ -1,6 +1,9 @@
 package bruto;
 
 
+import bruto.core.BrutoEngine;
+import bruto.core.TruthFormula;
+import bruto.result.BeanExplorationResults;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +70,6 @@ public class ComplexBeanTest {
         StringBuilder report = new StringBuilder();
         beanExplorationResults.printResults(report);
         log.info("Report\n{}", report.toString());
-        log.info("bean methods tested size {}", beanExplorationResults.getMethodExplorationResults().size());
         assertEquals(2, beanExplorationResults.getMethodExplorationResults().size());
     }
 

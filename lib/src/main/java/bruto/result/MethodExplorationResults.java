@@ -1,4 +1,6 @@
-package bruto;
+package bruto.result;
+
+import bruto.Result;
 
 import java.lang.reflect.Method;
 import java.util.HashSet;

@@ -1,5 +1,9 @@
-package bruto;
+package bruto.core;
 
+import bruto.Result;
+import bruto.TestResult;
+import bruto.result.BeanExplorationResults;
+import bruto.result.MethodExplorationResults;
 import bruto.variability.ArgumentVariabilityProvider;
 import bruto.variability.ArgumentVariabilityWalker;
 import org.slf4j.Logger;

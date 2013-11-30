@@ -1,4 +1,6 @@
-package bruto;
+package bruto.core;
+
+import bruto.TestResult;
 
 import java.lang.reflect.Method;
 

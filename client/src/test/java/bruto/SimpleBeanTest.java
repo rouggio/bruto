@@ -1,6 +1,9 @@
 package bruto;
 
 
+import bruto.core.BrutoEngine;
+import bruto.core.TruthFormula;
+import bruto.result.BeanExplorationResults;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

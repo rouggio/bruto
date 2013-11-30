@@ -1,5 +1,7 @@
 package bruto;
 
+import bruto.core.ArgumentSet;
+
 public class Result {
 
     private ArgumentSet argumentSet;

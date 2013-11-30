@@ -1,4 +1,4 @@
-package bruto;
+package bruto.result;
 
 import java.util.ArrayList;
 import java.util.List;

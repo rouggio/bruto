@@ -1,4 +1,4 @@
-package bruto;
+package bruto.core;
 
 import bruto.variability.ArgumentVariabilityWalker;
 import org.slf4j.Logger;
