@@ -1,5 +1,5 @@
+Features / Tasks
+
 - variability for all primitive types
-- permutation enumeration over complex types
-- truth handling
-- add inspection class incapsulating resultsMethod and resultsMethod
+- permutation walking over complex types
 - repetition of tests?

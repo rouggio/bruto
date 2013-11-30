@@ -2,6 +2,7 @@ package bruto;
 
 
 import bruto.core.BrutoEngine;
+import bruto.core.FormulaVerificationResult;
 import bruto.core.TruthFormula;
 import bruto.result.BeanExplorationResults;
 import org.junit.Test;
@@ -30,37 +31,37 @@ public class ComplexBeanTest {
 
         truthFormulas.add(new TruthFormula<Boolean>("containsUser", String.class) {
             @Override
-            public TestResult verify(Boolean result, Object[] arguments) {
+            public FormulaVerificationResult verify(Boolean result, Object[] arguments) {
                 boolean value = complexBean.containsUser((String) arguments[0]) == result;
-                return new TestResult(value ? TestResult.Result.SUCCESS : TestResult.Result.FAILURE);
+                return new FormulaVerificationResult(value ? FormulaVerificationResult.Result.SUCCESS : FormulaVerificationResult.Result.FAILURE, arguments);
             }
         });
 
         truthFormulas.add(new TruthFormula<ComplexBean.User>("create") {
             @Override
-            public TestResult verify(ComplexBean.User result, Object[] arguments) {
-                return new TestResult(TestResult.Result.SUCCESS);
+            public FormulaVerificationResult verify(ComplexBean.User result, Object[] arguments) {
+                return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, arguments);
             }
         });
 
         truthFormulas.add(new TruthFormula<IllegalArgumentException>("create") {
             @Override
-            public TestResult verify(IllegalArgumentException exception, Object[] arguments) {
+            public FormulaVerificationResult verify(IllegalArgumentException exception, Object[] arguments) {
                 if ((arguments[0] == null) || (arguments[1] == null)) {
-                    return new TestResult(TestResult.Result.SUCCESS, "expected behaviour");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, arguments, "expected behaviour");
                 } else {
-                    return new TestResult(TestResult.Result.FAILURE, "unexpected IllegalArgumentException");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, arguments, "unexpected IllegalArgumentException");
                 }
             }
         });
 
         truthFormulas.add(new TruthFormula<DuplicateUserException>("create") {
             @Override
-            public TestResult verify(DuplicateUserException exception, Object[] arguments) {
+            public FormulaVerificationResult verify(DuplicateUserException exception, Object[] arguments) {
                 if (complexBean.containsUser((String) arguments[0])) {
-                    return new TestResult(TestResult.Result.SUCCESS, "expected behaviour");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, arguments, "expected behaviour");
                 } else {
-                    return new TestResult(TestResult.Result.FAILURE, "user should now have been found as duplicate");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, arguments, "user should now have been found as duplicate");
                 }
             }
         });

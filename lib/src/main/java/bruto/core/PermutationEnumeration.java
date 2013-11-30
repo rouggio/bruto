@@ -9,7 +9,7 @@ import java.util.Enumeration;
 /**
  * builds the permutation matrix for all valid argument variants
  */
-public class PermutationEnumeration implements Enumeration<ArgumentSet> {
+public class PermutationEnumeration implements Enumeration<Object[]> {
 
     private static final Logger log = LoggerFactory.getLogger(PermutationEnumeration.class);
 
@@ -32,7 +32,7 @@ public class PermutationEnumeration implements Enumeration<ArgumentSet> {
     }
 
     @Override
-    public ArgumentSet nextElement() {
+    public Object[] nextElement() {
         Object[] arguments = new Object[argumentsVariabilityWalkers.length];
         boolean needToIncreaseHigherVariability = true;
 
@@ -67,7 +67,7 @@ public class PermutationEnumeration implements Enumeration<ArgumentSet> {
             }
             log.debug("adding tuple {}", stringBuilder.toString());
         }
-        return new ArgumentSet(arguments);
+        return arguments;
     }
 
 }

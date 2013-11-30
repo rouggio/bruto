@@ -2,6 +2,7 @@ package bruto;
 
 
 import bruto.core.BrutoEngine;
+import bruto.core.FormulaVerificationResult;
 import bruto.core.TruthFormula;
 import bruto.result.BeanExplorationResults;
 import org.junit.Test;
@@ -14,7 +15,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public class SimpleBeanTest {
 
@@ -29,14 +29,14 @@ public class SimpleBeanTest {
         Set<TruthFormula> truthFormulas = new HashSet<>();
         truthFormulas.add(new TruthFormula<Float>() {
             @Override
-            public TestResult verify(Float result, Object[] arguments) {
+            public FormulaVerificationResult verify(Float result, Object[] arguments) {
                 int a = (arguments[0] != null) ? (Integer) arguments[0] : 0;
                 int b = (arguments[1] != null) ? (Integer) arguments[1] : 0;
                 boolean computationCorrect = (result) == (a + b);
                 if (computationCorrect) {
-                    return new TestResult(TestResult.Result.SUCCESS);
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, arguments);
                 } else {
-                    return new TestResult(TestResult.Result.FAILURE, "incorrect computation result");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, arguments, "incorrect computation result");
                 }
             }
         });

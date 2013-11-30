@@ -1,7 +1,5 @@
 package bruto.core;
 
-import bruto.Result;
-import bruto.TestResult;
 import bruto.result.BeanExplorationResults;
 import bruto.result.MethodExplorationResults;
 import bruto.variability.ArgumentVariabilityProvider;
@@ -44,11 +42,11 @@ public class BrutoEngine {
         PermutationEnumeration argumentPermutationEnumeration = new PermutationEnumeration(argumentsVariabilityWalkers);
         long permutationsCount = 0;
         while (argumentPermutationEnumeration.hasMoreElements()) {
-            ArgumentSet argumentSet = argumentPermutationEnumeration.nextElement();
+            Object[] argumentSet = argumentPermutationEnumeration.nextElement();
             permutationsCount++;
             try {
                 log.debug("invoking class {} method {}", object.getClass().getName(), method.getName());
-                Object invokeResult = method.invoke(object, argumentSet.getArguments());
+                Object invokeResult = method.invoke(object, argumentSet);
                 inspectOutcome(method, argumentSet, invokeResult, methodTruthFormulas, methodResults);
             } catch (InvocationTargetException ite) {
                 inspectOutcome(method, argumentSet, ite.getTargetException(), methodTruthFormulas, methodResults);
@@ -72,18 +70,18 @@ public class BrutoEngine {
     }
 
     // inspects the input, the output or the exception, the formulas and determines whether there were any truth violations
-    private void inspectOutcome(Method method, ArgumentSet argumentSet, Object outcome, Set<TruthFormula> truthFormulas, MethodExplorationResults results) {
+    private void inspectOutcome(Method method, Object[] argumentSet, Object outcome, Set<TruthFormula> truthFormulas, MethodExplorationResults results) {
         boolean formulasMet = false;
         for (TruthFormula truthFormula : truthFormulas) {
             if (truthFormula.applicable(method)) {
                 Class genericType = (Class) ((ParameterizedTypeImpl) truthFormula.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                 if (genericType.isAssignableFrom(outcome.getClass())) {
                     formulasMet |= true;
-                    TestResult result = truthFormula.verify(outcome, argumentSet.getArguments());
-                    if (result.getResult().equals(TestResult.Result.FAILURE)) {
-                        results.addViolation(new Result(argumentSet, result));
+                    FormulaVerificationResult result = truthFormula.verify(outcome, argumentSet);
+                    if (result.isFailure()) {
+                        results.addViolation(result);
                     } else {
-                        results.addSuccess(new Result(argumentSet, result));
+                        results.addSuccess(result);
                     }
                 }
             }

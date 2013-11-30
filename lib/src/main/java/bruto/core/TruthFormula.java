@@ -1,7 +1,5 @@
 package bruto.core;
 
-import bruto.TestResult;
-
 import java.lang.reflect.Method;
 
 /**
@@ -47,6 +45,6 @@ public abstract class TruthFormula<T> {
     }
 
     //the expectation to meet
-    public abstract TestResult verify(T result, Object[] arguments);
+    public abstract FormulaVerificationResult verify(T result, Object[] arguments);
 
 }

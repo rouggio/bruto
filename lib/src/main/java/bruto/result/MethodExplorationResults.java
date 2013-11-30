@@ -1,6 +1,6 @@
 package bruto.result;
 
-import bruto.Result;
+import bruto.core.FormulaVerificationResult;
 
 import java.lang.reflect.Method;
 import java.util.HashSet;
@@ -11,8 +11,8 @@ public class MethodExplorationResults {
     private Method method;
     private long applicableFormulas;
     private long permutations;
-    private Set<Result> violations;
-    private Set<Result> successes;
+    private Set<FormulaVerificationResult> violations;
+    private Set<FormulaVerificationResult> successes;
     private long unparsedExecutions;
 
 
@@ -34,19 +34,19 @@ public class MethodExplorationResults {
         this.permutations = permutations;
     }
 
-    public void addViolation(Result result) {
+    public void addViolation(FormulaVerificationResult result) {
         violations.add(result);
     }
 
-    public void addSuccess(Result result) {
+    public void addSuccess(FormulaVerificationResult result) {
         successes.add(result);
     }
 
-    public Set<Result> getViolations() {
+    public Set<FormulaVerificationResult> getViolations() {
         return violations;
     }
 
-    public Set<Result> getSuccesses() {
+    public Set<FormulaVerificationResult> getSuccesses() {
         return successes;
     }
 
@@ -66,11 +66,11 @@ public class MethodExplorationResults {
         stringBuilder.append("-------------- Method Exploration Report --------------\n");
         stringBuilder.append(String.format("Method exploration results for method %s\n", method.getName()));
 //        stringBuilder.append("------- successes -------\n");
-//        for (Result success : successes) {
+//        for (FormulaVerificationResult success : successes) {
 //            success.printResults(stringBuilder);
 //        }
         stringBuilder.append("------- violations -------\n");
-        for (Result violation : violations) {
+        for (FormulaVerificationResult violation : violations) {
             violation.printResults(stringBuilder);
         }
         if (violations.isEmpty()) {
