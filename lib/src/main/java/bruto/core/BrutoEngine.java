@@ -96,7 +96,7 @@ public class BrutoEngine {
     public BeanExplorationResults exploreBean(Object bean, Set<TruthFormula> truthFormulas) {
         log.debug("exploring bean of class {}", bean.getClass().getName());
 
-        BeanExplorationResults results = new BeanExplorationResults();
+        BeanExplorationResults results = new BeanExplorationResults(bean.getClass());
 
         Method[] methods = bean.getClass().getDeclaredMethods();
         for (Method method : methods) {

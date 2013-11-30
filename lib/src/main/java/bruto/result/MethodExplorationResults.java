@@ -64,7 +64,7 @@ public class MethodExplorationResults {
 
     public void printResults(StringBuilder stringBuilder) {
         stringBuilder.append("-------------- Method Exploration Report --------------\n");
-        stringBuilder.append(String.format("Method exploration results for class %s method %s\n", method.getDeclaringClass().getCanonicalName(), method.getName()));
+        stringBuilder.append(String.format("Method exploration results for method %s\n", method.getName()));
 //        stringBuilder.append("------- successes -------\n");
 //        for (Result success : successes) {
 //            success.printResults(stringBuilder);
@@ -73,13 +73,16 @@ public class MethodExplorationResults {
         for (Result violation : violations) {
             violation.printResults(stringBuilder);
         }
+        if (violations.isEmpty()) {
+            stringBuilder.append("No violations encountered\n");
+        }
         stringBuilder.append("------- stats -------\n");
         stringBuilder.append(String.format("Number of applicable formulas: %s\n", applicableFormulas));
         stringBuilder.append(String.format("Number of permutations run: %s\n", permutations));
         stringBuilder.append(String.format("Number of successes collected: %s\n", successes.size()));
         stringBuilder.append(String.format("Number of violations collected: %s\n", violations.size()));
         stringBuilder.append(String.format("Number of executions not matching any formula: %s\n", unparsedExecutions));
-        stringBuilder.append(String.format("formula coverage: %s percent\n", ((permutations - unparsedExecutions) / permutations * 100)));
+        stringBuilder.append(String.format("formula coverage: %s%%\n", ((permutations - unparsedExecutions) / permutations * 100)));
         stringBuilder.append("-------------- Method Exploration Report End --------------\n");
     }
 }
