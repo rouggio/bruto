@@ -5,6 +5,7 @@ import bruto.core.FormulaVerificationResult;
 import bruto.core.TruthFormula;
 import bruto.result.BeanExplorationResults;
 import org.junit.Test;
+import sample.composite.Credentials;
 import sample.composite.LoginService;
 
 import java.util.HashSet;
@@ -22,6 +23,17 @@ public class CompositeBeanTest {
             @Override
             public FormulaVerificationResult verify(Boolean result, Object[] arguments) {
                 return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS);
+            }
+        });
+        truthFormulas.add(new TruthFormula<NullPointerException>("authenticate") {
+            @Override
+            public FormulaVerificationResult verify(NullPointerException result, Object[] arguments) {
+                Credentials credentials = (Credentials) arguments[0];
+                if (credentials.getUsername() == null || credentials.getPassword() == null) {
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS);
+                } else {
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE);
+                }
             }
         });
 
