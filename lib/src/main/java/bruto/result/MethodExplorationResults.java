@@ -1,6 +1,7 @@
 package bruto.result;
 
 import bruto.core.FormulaVerificationResult;
+import bruto.core.UnparsedError;
 
 import java.lang.reflect.Method;
 import java.util.HashSet;
@@ -14,13 +15,14 @@ public class MethodExplorationResults {
     private Set<FormulaVerificationResult> violations;
     private Set<FormulaVerificationResult> successes;
     private long unparsedExecutions;
-    private long unparsedExceptions;
+    private Set<UnparsedError> unparsedErrors;
 
 
     public MethodExplorationResults(Method method) {
         this.method = method;
         this.violations = new HashSet<>();
         this.successes = new HashSet<>();
+        this.unparsedErrors = new HashSet<>();
     }
 
     public Method getMethod() {
@@ -43,28 +45,12 @@ public class MethodExplorationResults {
         successes.add(result);
     }
 
-    public Set<FormulaVerificationResult> getViolations() {
-        return violations;
-    }
-
-    public Set<FormulaVerificationResult> getSuccesses() {
-        return successes;
+    public void addUnparsedError(Method method, Object[] argumentSet, Throwable outcome) {
+        unparsedErrors.add(new UnparsedError(method, argumentSet, outcome));
     }
 
     public void incrementUnparsedExecutions() {
         unparsedExecutions++;
-    }
-
-    public void incrementUnparsedExceptions() {
-        unparsedExceptions++;
-    }
-
-    public long getUnparsedExecutions() {
-        return unparsedExecutions;
-    }
-
-    public long getUnparsedExceptions() {
-        return unparsedExceptions;
     }
 
     public void setApplicableFormulas(long applicableFormulas) {
@@ -82,6 +68,10 @@ public class MethodExplorationResults {
         for (FormulaVerificationResult violation : violations) {
             violation.printResults(stringBuilder);
         }
+        stringBuilder.append("------- uncaught errors -------\n");
+        for (UnparsedError unparsedError : unparsedErrors) {
+            unparsedError.printResults(stringBuilder);
+        }
         if (violations.isEmpty()) {
             stringBuilder.append("No violations encountered\n");
         }
@@ -91,7 +81,7 @@ public class MethodExplorationResults {
         stringBuilder.append(String.format("Number of successes encountered: %s\n", successes.size()));
         stringBuilder.append(String.format("Number of violations encountered: %s\n", violations.size()));
         stringBuilder.append(String.format("Number of executions not matching any formula: %s\n", unparsedExecutions));
-        stringBuilder.append(String.format("Number of uncaught exceptions: %s\n", unparsedExceptions));
+        stringBuilder.append(String.format("Number of uncaught exceptions: %s\n", unparsedErrors.size()));
         stringBuilder.append(String.format("formula coverage: %f%%\n", ((permutations - unparsedExecutions) / (float) permutations * 100)));
         stringBuilder.append("-------------- Method Exploration Report End --------------\n");
     }

@@ -88,7 +88,7 @@ public class BrutoEngine {
         if (!formulasMet) {
             results.incrementUnparsedExecutions();
             if (outcome instanceof Throwable) {
-                results.incrementUnparsedExceptions();
+                results.addUnparsedError(method, argumentSet, (Throwable) outcome);
             }
         }
     }
