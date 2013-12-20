@@ -26,7 +26,7 @@ public class BrutoEngine {
     }
 
     public MethodExplorationResults exploreMethod(Method method, Object object, Set<TruthFormula> truthFormulas) {
-        log.debug("exploring method {} of class {}", method.getName(), object.getClass().getName());
+        log.debug("exploring class: {} method: {}", object.getClass().getName(), method.getName());
         MethodExplorationResults methodResults = new MethodExplorationResults(method);
 
         ArgumentVariabilityWalker[] argumentsVariabilityWalkers = buildArgumentsVariabilityWalkers(method);
@@ -45,7 +45,6 @@ public class BrutoEngine {
             Object[] argumentSet = argumentPermutationEnumeration.nextElement();
             permutationsCount++;
             try {
-                log.debug("invoking class {} method {}", object.getClass().getName(), method.getName());
                 Object invokeResult = method.invoke(object, argumentSet);
                 inspectOutcome(method, argumentSet, invokeResult, methodTruthFormulas, methodResults);
             } catch (InvocationTargetException ite) {
@@ -77,7 +76,7 @@ public class BrutoEngine {
                 Class genericType = (Class) ((ParameterizedTypeImpl) truthFormula.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                 if (genericType.isAssignableFrom(outcome.getClass())) {
                     formulasMet |= true;
-                    FormulaVerificationResult result = truthFormula.verify(outcome, argumentSet);
+                    FormulaVerificationResult result = truthFormula.internalVerify(outcome, argumentSet);
                     if (result.isFailure()) {
                         results.addViolation(result);
                     } else {
@@ -88,6 +87,9 @@ public class BrutoEngine {
         }
         if (!formulasMet) {
             results.incrementUnparsedExecutions();
+            if (outcome instanceof Throwable) {
+                results.incrementUnparsedExceptions();
+            }
         }
     }
 

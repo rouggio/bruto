@@ -11,13 +11,12 @@ public class FormulaVerificationResult {
     private Result result;
     private String comment;
 
-    public FormulaVerificationResult(Result result, Object[] argumentSet) {
+    public FormulaVerificationResult(Result result) {
         this.result = result;
-        this.argumentSet = argumentSet;
     }
 
-    public FormulaVerificationResult(Result result, Object[] argumentSet, String comment) {
-        this(result, argumentSet);
+    public FormulaVerificationResult(Result result, String comment) {
+        this.result = result;
         this.comment = comment;
     }
 
@@ -27,6 +26,10 @@ public class FormulaVerificationResult {
 
     public Object[] getArgumentSet() {
         return argumentSet;
+    }
+
+    protected void setArgumentSet(Object[] argumentSet) {
+        this.argumentSet = argumentSet;
     }
 
     public String getComment() {

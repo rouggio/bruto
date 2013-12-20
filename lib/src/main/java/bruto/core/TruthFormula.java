@@ -45,6 +45,13 @@ public abstract class TruthFormula<T> {
     }
 
     //the expectation to meet
+    protected FormulaVerificationResult internalVerify(T result, Object[] arguments) {
+        FormulaVerificationResult formulaVerificationResult = verify(result, arguments);
+        formulaVerificationResult.setArgumentSet(arguments);
+        return formulaVerificationResult;
+    }
+
+    //the expectation to meet
     public abstract FormulaVerificationResult verify(T result, Object[] arguments);
 
 }

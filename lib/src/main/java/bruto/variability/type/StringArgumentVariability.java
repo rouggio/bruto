@@ -16,7 +16,7 @@ public class StringArgumentVariability extends ArgumentVariability {
     }
 
     @Override
-    public ArgumentVariabilityWalker newWalker() {
-        return new DiscreteSetWalker<String>(variants);
+    public ArgumentVariabilityWalker newWalker(Type type) {
+        return new DiscreteSetWalker<>(variants);
     }
 }

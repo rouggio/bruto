@@ -62,10 +62,12 @@ public class PermutationEnumeration implements Enumeration<Object[]> {
         }
         if (log.isDebugEnabled()) {
             StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("'");
             for (Object argument : arguments) {
-                stringBuilder.append(argument).append("|");
+                stringBuilder.append(argument);
             }
-            log.debug("adding tuple {}", stringBuilder.toString());
+            stringBuilder.append("'");
+            log.debug("adding tuple\t{}", stringBuilder.toString());
         }
         return arguments;
     }

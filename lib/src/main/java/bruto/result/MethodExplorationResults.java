@@ -14,6 +14,7 @@ public class MethodExplorationResults {
     private Set<FormulaVerificationResult> violations;
     private Set<FormulaVerificationResult> successes;
     private long unparsedExecutions;
+    private long unparsedExceptions;
 
 
     public MethodExplorationResults(Method method) {
@@ -54,8 +55,16 @@ public class MethodExplorationResults {
         unparsedExecutions++;
     }
 
+    public void incrementUnparsedExceptions() {
+        unparsedExceptions++;
+    }
+
     public long getUnparsedExecutions() {
         return unparsedExecutions;
+    }
+
+    public long getUnparsedExceptions() {
+        return unparsedExceptions;
     }
 
     public void setApplicableFormulas(long applicableFormulas) {
@@ -64,7 +73,7 @@ public class MethodExplorationResults {
 
     public void printResults(StringBuilder stringBuilder) {
         stringBuilder.append("-------------- Method Exploration Report --------------\n");
-        stringBuilder.append(String.format("Method exploration results for method %s\n", method.getName()));
+        stringBuilder.append(String.format("Method name: %s\n", method.getName()));
 //        stringBuilder.append("------- successes -------\n");
 //        for (FormulaVerificationResult success : successes) {
 //            success.printResults(stringBuilder);
@@ -79,10 +88,11 @@ public class MethodExplorationResults {
         stringBuilder.append("------- stats -------\n");
         stringBuilder.append(String.format("Number of applicable formulas: %s\n", applicableFormulas));
         stringBuilder.append(String.format("Number of permutations run: %s\n", permutations));
-        stringBuilder.append(String.format("Number of successes collected: %s\n", successes.size()));
-        stringBuilder.append(String.format("Number of violations collected: %s\n", violations.size()));
+        stringBuilder.append(String.format("Number of successes encountered: %s\n", successes.size()));
+        stringBuilder.append(String.format("Number of violations encountered: %s\n", violations.size()));
         stringBuilder.append(String.format("Number of executions not matching any formula: %s\n", unparsedExecutions));
-        stringBuilder.append(String.format("formula coverage: %s%%\n", ((permutations - unparsedExecutions) / permutations * 100)));
+        stringBuilder.append(String.format("Number of uncaught exceptions: %s\n", unparsedExceptions));
+        stringBuilder.append(String.format("formula coverage: %f%%\n", ((permutations - unparsedExecutions) / (float) permutations * 100)));
         stringBuilder.append("-------------- Method Exploration Report End --------------\n");
     }
 }

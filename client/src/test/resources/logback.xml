@@ -7,7 +7,7 @@
         </layout>
     </appender>
 
-    <logger name="bruto" level="info"/>
+    <logger name="bruto" level="debug"/>
 
 
     <root level="info">

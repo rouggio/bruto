@@ -9,6 +9,6 @@ public abstract class ArgumentVariability {
 
     public abstract boolean matches(Type type);
 
-    public abstract ArgumentVariabilityWalker newWalker();
+    public abstract ArgumentVariabilityWalker newWalker(Type type);
 
 }

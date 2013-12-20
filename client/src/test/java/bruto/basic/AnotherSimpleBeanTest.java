@@ -1,4 +1,4 @@
-package bruto;
+package bruto.basic;
 
 
 import bruto.core.BrutoEngine;
@@ -8,8 +8,8 @@ import bruto.result.BeanExplorationResults;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sample.ComplexBean;
-import sample.DuplicateUserException;
+import sample.basic.ComplexBean;
+import sample.basic.DuplicateUserException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,9 +17,9 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ComplexBeanTest {
+public class AnotherSimpleBeanTest {
 
-    private static final Logger log = LoggerFactory.getLogger(ComplexBeanTest.class);
+    private static final Logger log = LoggerFactory.getLogger(AnotherSimpleBeanTest.class);
 
     @Test
     public void test() {
@@ -33,14 +33,14 @@ public class ComplexBeanTest {
             @Override
             public FormulaVerificationResult verify(Boolean result, Object[] arguments) {
                 boolean value = complexBean.containsUser((String) arguments[0]) == result;
-                return new FormulaVerificationResult(value ? FormulaVerificationResult.Result.SUCCESS : FormulaVerificationResult.Result.FAILURE, arguments);
+                return new FormulaVerificationResult(value ? FormulaVerificationResult.Result.SUCCESS : FormulaVerificationResult.Result.FAILURE);
             }
         });
 
         truthFormulas.add(new TruthFormula<ComplexBean.User>("create") {
             @Override
             public FormulaVerificationResult verify(ComplexBean.User result, Object[] arguments) {
-                return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, arguments);
+                return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS);
             }
         });
 
@@ -48,9 +48,9 @@ public class ComplexBeanTest {
             @Override
             public FormulaVerificationResult verify(IllegalArgumentException exception, Object[] arguments) {
                 if ((arguments[0] == null) || (arguments[1] == null)) {
-                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, arguments, "expected behaviour");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, "expected behaviour");
                 } else {
-                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, arguments, "unexpected IllegalArgumentException");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, "unexpected IllegalArgumentException");
                 }
             }
         });
@@ -59,9 +59,9 @@ public class ComplexBeanTest {
             @Override
             public FormulaVerificationResult verify(DuplicateUserException exception, Object[] arguments) {
                 if (complexBean.containsUser((String) arguments[0])) {
-                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, arguments, "expected behaviour");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, "expected behaviour");
                 } else {
-                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, arguments, "user should now have been found as duplicate");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, "user should now have been found as duplicate");
                 }
             }
         });

@@ -1,4 +1,4 @@
-package bruto;
+package bruto.basic;
 
 
 import bruto.core.BrutoEngine;
@@ -8,7 +8,7 @@ import bruto.result.BeanExplorationResults;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sample.SimpleBean;
+import sample.basic.SimpleBean;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,9 +34,9 @@ public class SimpleBeanTest {
                 int b = (arguments[1] != null) ? (Integer) arguments[1] : 0;
                 boolean computationCorrect = (result) == (a + b);
                 if (computationCorrect) {
-                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS, arguments);
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.SUCCESS);
                 } else {
-                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, arguments, "incorrect computation result");
+                    return new FormulaVerificationResult(FormulaVerificationResult.Result.FAILURE, "incorrect computation result");
                 }
             }
         });

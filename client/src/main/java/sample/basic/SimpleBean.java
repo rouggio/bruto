@@ -1,4 +1,4 @@
-package sample;
+package sample.basic;
 
 public class SimpleBean {
 
