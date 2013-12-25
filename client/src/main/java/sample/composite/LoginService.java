@@ -11,7 +11,7 @@ public class LoginService {
         accounts = new HashMap<>();
         accounts.put("a", 0);
         accounts.put("b", 1);
-        accounts.put(null, 2);
+        accounts.put("c", 2);
     }
 
     public Boolean authenticate(Credentials credentials) {

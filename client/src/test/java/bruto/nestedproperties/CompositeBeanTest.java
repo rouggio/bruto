@@ -1,6 +1,7 @@
 package bruto.nestedproperties;
 
 import bruto.core.BrutoEngine;
+import bruto.core.Dalala;
 import bruto.core.FormulaVerificationResult;
 import bruto.core.TruthFormula;
 import bruto.result.BeanExplorationResults;
@@ -41,6 +42,9 @@ public class CompositeBeanTest {
         beanExplorationResults.printResults(sb);
 
         System.out.println(sb.toString());
+
+        Dalala dalala = new Dalala();
+        dalala.printout();
     }
 
 }
