@@ -1,14 +1,12 @@
 package bruto.variability;
 
+import bruto.variability.primitives.IntegerArgumentVariability;
+import bruto.variability.primitives.StringArgumentVariability;
 import bruto.variability.type.CompositeBeanArgumentVariability;
-import bruto.variability.type.IntegerArgumentVariability;
-import bruto.variability.type.StringArgumentVariability;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Provides all implementations of ArgumentVariablity
